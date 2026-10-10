@@ -22,15 +22,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v4
-
-    - name: Generate gradlew and build APK
+    - name: Generate gradlew with Gradle 8.2
       run: |
         cd Kiyan-Keyboard-Professional-v2
-        gradle wrapper
+        gradle wrapper --gradle-version 8.2 --distribution-type bin
         chmod +x gradlew
-        ./gradlew assembleDebug
+
+    - name: Build Debug APK
+      run: |
+        cd Kiyan-Keyboard-Professional-v2
+        ./gradlew assembleDebug --no-daemon
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
