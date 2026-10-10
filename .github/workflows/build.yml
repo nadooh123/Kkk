@@ -22,14 +22,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Grant execute permission for gradlew
-      run: |
-        cd Kiyan-Keyboard-Professional-v2
-        chmod +x gradlew
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
 
-    - name: Build Debug APK
+    - name: Generate gradlew and build APK
       run: |
         cd Kiyan-Keyboard-Professional-v2
+        gradle wrapper
+        chmod +x gradlew
         ./gradlew assembleDebug
 
     - name: Upload APK
